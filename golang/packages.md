@@ -17,3 +17,5 @@
 16. encoding/csv
 17. encoding/json
 18. cmp (Compare, Less)
+19. maps: (DeleteFun)
+20. reflect

@@ -26,6 +26,9 @@ func print[T any](container []T) {
 
 c++: concept , requires requires
 
+concept fulfills single responsibility principle, 
+and also dependendency inversion (local) principle
+
 ```c++
 template <typename TG>
 concept IsThreadGroup = requires(TG x) {

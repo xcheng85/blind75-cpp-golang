@@ -5,7 +5,9 @@ package main
 import (
 	"encoding/csv"
 	_ "encoding/csv"
+	"encoding/json"
 	"fmt"
+	"maps"
 	"math"
 	"math/rand"
 	"os"
@@ -13,6 +15,7 @@ import (
 	"sort"
 	"strconv"
 	"time"
+
 	"github.com/xcheng85/blind75-cpp-golang/golang/sandbox/core"
 )
 
@@ -86,6 +89,20 @@ func writeCSV(path string) error {
 	return nil
 }
 
+func testRTII(x interface{}) {
+	// must within switch
+	// T := x.(type)
+
+	switch T := x.(type) {
+	case Player:
+		fmt.Println("Player type")
+		// default: break c++
+		// fallthrough: not supported in type switch
+	default:
+		fmt.Println("Unknown type: ", T)
+	}
+}
+
 func main() {
 
 	fmt.Println(math.MaxInt)
@@ -119,6 +136,11 @@ func main() {
 
 	// write to csv
 	players = append(players, []Player{{"Giannis", "Antetokounmpo", 34}, {"Dame", "Lillard", 0}}...)
+	// sort player by jersey number
+	sort.Sort(players)
+	// rtii
+	testRTII(players[0])
+
 	writeCSV("bucks.csv")
 
 	readCSV("bucks.csv")
@@ -128,4 +150,44 @@ func main() {
 	l.PushFront("Giannis")
 	l.PushFront("Dame")
 	l.Debug()
+
+	// shallow copy
+	// different memory spaces
+	playersCopy := slices.Clone(players)
+	players[0].Number = 99
+	fmt.Println(playersCopy)
+
+	// search, very similar to std::find
+	fmt.Println(slices.ContainsFunc(playersCopy, func(p Player) bool {
+		return p.Number == 34
+	}))
+
+	// erase algo in go
+	playerJerseyMap := map[string]int{
+		"Giannis": 34,
+		"Dame":    0,
+	}
+
+	maps.DeleteFunc(playerJerseyMap, func(name string, jersey int) bool {
+		return name == "Giannis"
+	})
+
+	fmt.Println(playerJerseyMap)
+
+	// map copy with separate memory
+	playerJerseyMapCopy := maps.Clone(playerJerseyMap)
+	playerJerseyMap["Bobby"] = 9
+	fmt.Println(playerJerseyMapCopy)
+
+	// json parser
+	js := make(map[string]interface{})
+	//js := map[string]interface{}{}
+	err := json.Unmarshal([]byte(core.TestJson), &js)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		core.Probe(js)
+		core.TypeSwitch(js)
+	}
+
 }

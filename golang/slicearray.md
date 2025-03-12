@@ -40,3 +40,37 @@ c++: std::sort(begin, end, [](){
 golang: 
 
 c++: std::sort(, , std::greater<T>())
+
+
+## Deep/Shallow copy of array-like
+
+c++: deep copy = 
+
+golang: slices.Clone
+
+## search element
+c++: std::find
+
+golang: slices.Contains
+
+slices.ContainsFunc(playersCopy, func(p Player) bool {
+		return p.Number == 34
+	})
+
+## memory shrink 
+c++: shrink_to_fit
+
+golang: slices.Clip()
+
+## min and max
+return iterator
+c++: std::min     const auto [min, max] = std::minmax_element(begin(v), end(v));
+
+golang: slices.Min()/Max()
+
+## replace algo in a range [)
+
+
+c++:     std::replace(s.begin(), s.end(), 8, 88);
+
+golang: slices.Replace(s, 1, 2, 8, 88)
