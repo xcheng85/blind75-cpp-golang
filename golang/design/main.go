@@ -4,6 +4,7 @@ package main
 import (
 	"github.com/xcheng85/blind75-cpp-golang/golang/design/unstable"
 	"github.com/xcheng85/blind75-cpp-golang/golang/design/visitor"
+	"github.com/xcheng85/blind75-cpp-golang/golang/design/state"
 	"fmt"
 )
 
@@ -40,4 +41,16 @@ func main() {
 	hf.Accept(namev2Visitor)
 	fmt.Println(vol.Meta)
 	fmt.Println(hf.Meta)
+
+	// state machine for game
+	{
+		startState := state.StartState{}
+		gameCtx := state.GameContext {
+			Next: &startState,
+		}
+		// while loop not exist in go
+		for gameCtx.Next.Execute(&gameCtx) {
+
+		}
+	}
 }
