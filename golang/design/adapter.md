@@ -7,6 +7,8 @@ OCP
 closeness: existing old interface
 open: a new interface incompatible with old 
 
+create a way to use the old functionality with a new signature
+
 ## Ways to implement 
 
 1. Object-based Adaptor through inheritance 
