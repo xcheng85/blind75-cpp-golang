@@ -32,3 +32,12 @@ val, opened := <-ch
 // c++ asyn program with blocking get
 
 ## pub-sub with goroutine
+
+## one thread listen to multiple asyn task in c++
+
+How to implement it in c++, you can use busy wait of future readiness ? loop 
+
+## one thread listen to multiple asyn task in go
+
+select: random select any ready go routine
+default case: none is reaady, 
