@@ -2,9 +2,11 @@ package main
 
 import (
 	"fmt"
+	"sync"
+	"time"
+
 	"github.com/xcheng85/blind75-cpp-golang/golang/concurrent/streaming"
 	sync2 "github.com/xcheng85/blind75-cpp-golang/golang/concurrent/sync"
-	"sync"
 )
 
 func main() {
@@ -49,4 +51,20 @@ func main() {
 	go consumerTaskFunc("6")
 
 	wg.Wait()
+
+	// promise.any in go
+	{
+		stopCh := make(chan struct{})
+		workerThread := func(sleep time.Duration, ch *chan struct{}){
+			time.Sleep(sleep)
+			close(*ch)
+		}
+		go workerThread(time.Second, &stopCh)
+		go workerThread(3 * time.Second, &stopCh)
+		
+		select {
+		case <-stopCh:
+			return
+		}
+	}
 }

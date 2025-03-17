@@ -41,3 +41,5 @@ How to implement it in c++, you can use busy wait of future readiness ? loop
 
 select: random select any ready go routine
 default case: none is reaady, 
+
+implement Promise.any()

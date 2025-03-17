@@ -32,3 +32,4 @@ func WordCount(sentences []string) {
 		}
 	}
 }
+
