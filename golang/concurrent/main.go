@@ -82,4 +82,22 @@ func main() {
 		TaskInput("Map3"),
 	)
 	fmt.Println(resp)
+
+	// node.js style
+	{
+		var wg sync.WaitGroup
+		wg.Add(1)
+		p := Promisify{}
+		p.RegisterRejector(func(err error) {
+			wg.Done()
+		}).RegisterResolver(func(s string) {
+			fmt.Println(s)
+			wg.Done()
+		})
+		p.Execute(func() (string, error) {
+			return "test promise in go", nil
+		})
+		// like await in js
+		wg.Wait()
+	}
 }

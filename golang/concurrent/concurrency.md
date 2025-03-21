@@ -58,7 +58,13 @@ concurrent singleton
 
 Promise.all
 
-## Future pattern in go
+## Future pattern in go 
+
+node.js style, async call stack
+
+promise,reslove, reject in js
 
 ## Pipeline pattern 
+
+
 
