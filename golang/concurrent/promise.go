@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 // stable layer
 // function as first-class citizen
 // the async will return string assumably

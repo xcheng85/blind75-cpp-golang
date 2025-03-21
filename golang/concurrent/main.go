@@ -100,4 +100,10 @@ func main() {
 		// like await in js
 		wg.Wait()
 	}
+
+	{
+		// full map reduce
+		res := AsyncLaunchMapReduce()
+		fmt.Println(res)
+	}
 }

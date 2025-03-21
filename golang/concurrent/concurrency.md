@@ -66,5 +66,7 @@ promise,reslove, reject in js
 
 ## Pipeline pattern 
 
+map-reduce: two stages in pipeline: map and reduce
 
+quick sort: all the divide and conquer algorithm
 
