@@ -34,7 +34,7 @@ func main() {
 	var wg sync.WaitGroup
 	wg.Add(6)
 	// create two consumers within one consumer group
-	consumerTaskFunc := func(consumerId string){
+	consumerTaskFunc := func(consumerId string) {
 		defer wg.Done()
 		for task := range createSessionStreamChReadonly {
 			fmt.Println(task)
@@ -55,16 +55,31 @@ func main() {
 	// promise.any in go
 	{
 		stopCh := make(chan struct{})
-		workerThread := func(sleep time.Duration, ch *chan struct{}){
+		workerThread := func(sleep time.Duration, ch chan struct{}) {
 			time.Sleep(sleep)
-			close(*ch)
+			_, ok := (<-ch)
+			if ok {
+				close(ch)
+			}
 		}
-		go workerThread(time.Second, &stopCh)
-		go workerThread(3 * time.Second, &stopCh)
-		
+		go workerThread(time.Second, stopCh)
+		go workerThread(3*time.Second, stopCh)
+
 		select {
 		case <-stopCh:
-			return
+			fmt.Println("Done Promise.any")
+		case <-time.After(2 * time.Second):
+			fmt.Println("Timedout Promise.any")
 		}
 	}
+
+	// barrier concurency pattern
+	// like container of thread
+	// and join all of them
+	resp := AsynRunTasksAndWait(
+		TaskInput("Map1"),
+		TaskInput("Map2"),
+		TaskInput("Map3"),
+	)
+	fmt.Println(resp)
 }

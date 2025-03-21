@@ -2,6 +2,8 @@
 
 ## CSP
 
+decouple the two threads (they are not aware of each other)
+
 concurrency using communication primitives (channel) instead of 
 memory (mutex)
 
@@ -43,3 +45,20 @@ select: random select any ready go routine
 default case: none is reaady, 
 
 implement Promise.any()
+
+## mutex and shared data contention
+similar to c++
+
+thread-safe queue, stack, vector
+
+concurrent singleton
+
+
+## wait group and semaphore counter based wait
+
+Promise.all
+
+## Future pattern in go
+
+## Pipeline pattern 
+
